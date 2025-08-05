@@ -8,6 +8,7 @@ namespace TodoApp;
 
 public class Program
 {
+
     public async static Task<int> Main(string[] args)
     {
         Log.Logger = new LoggerConfiguration()
