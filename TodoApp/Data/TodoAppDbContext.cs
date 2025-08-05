@@ -10,6 +10,7 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using TodoApp.Entities;
 
 namespace TodoApp.Data;
 
@@ -18,6 +19,8 @@ public class TodoAppDbContext : AbpDbContext<TodoAppDbContext>
     
     public const string DbTablePrefix = "App";
     public const string DbSchema = null;
+
+    public DbSet<TodoItem> TodoItems { get; set; }
 
     public TodoAppDbContext(DbContextOptions<TodoAppDbContext> options)
         : base(options)
@@ -39,8 +42,12 @@ public class TodoAppDbContext : AbpDbContext<TodoAppDbContext>
         builder.ConfigureIdentity();
         builder.ConfigureOpenIddict();
         builder.ConfigureTenantManagement();
-        
+
         /* Configure your own entities here */
+        builder.Entity<TodoItem>(b =>
+        {
+            b.ToTable("TodoItems");
+        });
     }
 }
 
